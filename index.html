@@ -1,825 +1,406 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="sq">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Mobileri Taci — Mobilje për çdo cep të shtëpisë</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --ink:#21170f;
-    --paper:#f4efe4;
-    --paper-2:#ece3d2;
-    --walnut:#5a3a26;
-    --walnut-dark:#3a2517;
-    --walnut-light:#8a6a4a;
-    --olive:#57604a;
-    --olive-light:#7c8768;
-    --brass:#ab7f45;
-    --line: rgba(33,23,15,0.14);
-    box-sizing:border-box;
-    padding-top:env(safe-area-inset-top,0px);
-    padding-bottom:env(safe-area-inset-bottom,0px);
-  }
-  *,*::before,*::after{box-sizing:inherit;}
-  html{scroll-behavior:smooth; scroll-padding-top:env(safe-area-inset-top,0px);}
-  html,body{height:auto; margin:0;}
-  body{
-    background:var(--paper);
-    color:var(--ink);
-    font-family:'Work Sans', sans-serif;
-    font-size:16px;
-    line-height:1.55;
-    -webkit-font-smoothing:antialiased;
-  }
-  @media (prefers-reduced-motion: reduce){
-    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
-  }
-  h1,h2,h3{
-    font-family:'Fraunces', serif;
-    font-weight:600;
-    letter-spacing:-0.01em;
-    margin:0;
-    color:var(--ink);
-  }
-  p{margin:0;}
-  a{color:inherit; text-decoration:none;}
-  img,svg{max-width:100%; display:block;}
-  .wrap{
-    max-width:1180px;
-    margin:0 auto;
-    padding-left:6vw;
-    padding-right:6vw;
-  }
-  ::selection{background:var(--olive); color:var(--paper);}
-  a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible{
-    outline:2px solid var(--brass);
-    outline-offset:3px;
-  }
-
-  /* ---------- NAV ---------- */
-  header.site{
-    position:sticky;
-    top:env(safe-area-inset-top,0px);
-    z-index:50;
-    background:rgba(244,239,228,0.92);
-    backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--line);
-  }
-  .nav{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:18px 6vw;
-  }
-  .brand{
-    font-family:'Fraunces', serif;
-    font-weight:700;
-    font-size:1.35rem;
-    letter-spacing:-0.01em;
-    display:flex;
-    align-items:baseline;
-    gap:8px;
-  }
-  .brand .dot{color:var(--brass); font-size:1.1rem;}
-  nav.links{
-    display:flex;
-    gap:34px;
-    font-size:0.95rem;
-  }
-  nav.links a{
-    position:relative;
-    padding-bottom:4px;
-    border-bottom:1px solid transparent;
-    transition:border-color .2s ease, color .2s ease;
-  }
-  nav.links a:hover{border-color:var(--brass);}
-  .nav-phone{
-    font-size:0.95rem;
-    font-weight:500;
-    white-space:nowrap;
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
-  .menu-toggle{display:none; background:none; border:none; cursor:pointer; padding:4px;}
-  .menu-toggle span{display:block; width:24px; height:2px; background:var(--ink); margin:5px 0;}
-
-  /* ---------- HERO ---------- */
-  .hero{
-    position:relative;
-    padding:64px 6vw 88px;
-    overflow:hidden;
-    background:
-      repeating-linear-gradient(100deg, rgba(90,58,38,0.05) 0px, rgba(90,58,38,0.05) 1px, transparent 1px, transparent 68px);
-  }
-  .hero-grid{
-    max-width:1180px;
-    margin:0 auto;
-    display:grid;
-    grid-template-columns:1.05fr 0.95fr;
-    gap:48px;
-    align-items:center;
-  }
-  .hero-eyebrow{
-    font-size:0.95rem;
-    color:var(--olive);
-    font-weight:500;
-    margin-bottom:18px;
-  }
-  .hero h1{
-    font-size:clamp(2.5rem, 5.2vw, 4.1rem);
-    line-height:1.05;
-  }
-  .hero h1 em{
-    font-style:italic;
-    color:var(--walnut);
-  }
-  .hero-sub{
-    margin-top:26px;
-    max-width:46ch;
-    font-size:1.12rem;
-    color:var(--walnut-dark);
-  }
-  .hero-cta{
-    margin-top:38px;
-    display:flex;
-    gap:18px;
-    align-items:center;
-    flex-wrap:wrap;
-  }
-  .btn{
-    display:inline-block;
-    padding:14px 28px;
-    background:var(--walnut);
-    color:var(--paper);
-    border-radius:2px;
-    font-size:0.98rem;
-    font-weight:500;
-    border:1px solid var(--walnut);
-    cursor:pointer;
-    transition:background .2s ease, color .2s ease, transform .15s ease;
-  }
-  .btn:hover{background:var(--walnut-dark); transform:translateY(-1px);}
-  .btn.ghost{
-    background:transparent;
-    color:var(--walnut-dark);
-    border:1px solid var(--walnut-dark);
-  }
-  .btn.ghost:hover{background:var(--walnut-dark); color:var(--paper);}
-
-  .hero-art{position:relative;}
-  .hero-art svg{width:100%; height:auto;}
-  .hero-stats{
-    display:flex;
-    gap:36px;
-    margin-top:46px;
-    padding-top:26px;
-    border-top:1px solid var(--line);
-    max-width:46ch;
-  }
-  .hero-stats div b{
-    display:block;
-    font-family:'Fraunces', serif;
-    font-size:1.9rem;
-    font-weight:600;
-    color:var(--walnut);
-  }
-  .hero-stats div span{
-    font-size:0.86rem;
-    color:var(--ink);
-    opacity:0.72;
-  }
-
-  /* ---------- SECTION helpers ---------- */
-  section{padding:96px 0;}
-  .section-head{
-    max-width:640px;
-    margin-bottom:56px;
-  }
-  .section-head .kicker{
-    color:var(--olive);
-    font-weight:500;
-    font-size:0.95rem;
-    margin-bottom:14px;
-  }
-  .section-head h2{
-    font-size:clamp(1.9rem, 3.4vw, 2.6rem);
-    line-height:1.12;
-  }
-  .section-head p{
-    margin-top:18px;
-    color:var(--walnut-dark);
-    font-size:1.05rem;
-    max-width:56ch;
-  }
-
-  /* ---------- ROOMS ---------- */
-  .rooms{background:var(--paper-2);}
-  .room-grid{
-    display:grid;
-    grid-template-columns:repeat(4, 1fr);
-    gap:1px;
-    background:var(--line);
-    border:1px solid var(--line);
-  }
-  .room-card{
-    background:var(--paper-2);
-    padding:40px 30px 34px;
-    display:flex;
-    flex-direction:column;
-    gap:22px;
-    transition:background .25s ease;
-  }
-  .room-card:hover{background:var(--paper);}
-  .room-card .icon{height:78px; display:flex; align-items:flex-end;}
-  .room-card .icon svg{width:100%; height:auto;}
-  .room-card h3{font-size:1.28rem; font-weight:600;}
-  .room-card p{font-size:0.94rem; color:var(--ink); opacity:0.78;}
-  .room-card .tag{
-    font-size:0.82rem;
-    color:var(--brass);
-    font-weight:500;
-  }
-
-  /* ---------- PROCESS ---------- */
-  .process .wrap{
-    display:grid;
-    grid-template-columns:0.85fr 1.15fr;
-    gap:64px;
-  }
-  .process-steps{
-    display:flex;
-    flex-direction:column;
-  }
-  .step{
-    display:grid;
-    grid-template-columns:52px 1fr;
-    gap:20px;
-    padding:26px 0;
-    border-top:1px solid var(--line);
-  }
-  .step:last-child{border-bottom:1px solid var(--line);}
-  .step .num{
-    font-family:'Fraunces', serif;
-    font-size:1.1rem;
-    color:var(--brass);
-    font-weight:600;
-    padding-top:2px;
-  }
-  .step h3{font-size:1.12rem; font-weight:600; margin-bottom:8px;}
-  .step p{font-size:0.95rem; color:var(--ink); opacity:0.78; max-width:46ch;}
-
-  .process-art{
-    position:relative;
-    background:var(--walnut);
-    border-radius:3px;
-    padding:44px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    min-height:420px;
-  }
-  .process-art svg{width:100%; max-width:360px;}
-
-  /* ---------- FEATURED ---------- */
-  .featured{
-    background:var(--walnut-dark);
-    color:var(--paper);
-  }
-  .featured .wrap{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:60px;
-    align-items:center;
-  }
-  .featured .kicker{color:var(--brass);}
-  .featured h2{color:var(--paper); font-size:clamp(1.9rem,3.4vw,2.7rem); line-height:1.12;}
-  .featured p.desc{
-    margin-top:20px;
-    color:rgba(244,239,228,0.78);
-    font-size:1.05rem;
-    max-width:50ch;
-  }
-  .featured-list{
-    margin-top:30px;
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-  }
-  .featured-list div{
-    display:flex;
-    gap:14px;
-    align-items:baseline;
-    font-size:0.98rem;
-    color:rgba(244,239,228,0.9);
-  }
-  .featured-list div .mk{color:var(--brass);}
-  .featured-art{
-    background:rgba(244,239,228,0.04);
-    border:1px solid rgba(244,239,228,0.14);
-    border-radius:3px;
-    padding:30px;
-  }
-  .featured-art svg{width:100%; height:auto;}
-
-  /* ---------- TESTIMONIALS ---------- */
-  .quotes .wrap{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:42px;
-  }
-  .quote{
-    padding-top:26px;
-    border-top:2px solid var(--walnut);
-  }
-  .quote p.q{
-    font-family:'Fraunces', serif;
-    font-size:1.16rem;
-    line-height:1.4;
-    color:var(--ink);
-  }
-  .quote .who{
-    margin-top:20px;
-    font-size:0.9rem;
-    color:var(--ink);
-    opacity:0.7;
-  }
-
-  /* ---------- CONTACT ---------- */
-  .contact{background:var(--paper-2);}
-  .contact .wrap{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:64px;
-  }
-  .contact-info h2{font-size:clamp(1.9rem,3.2vw,2.5rem);}
-  .contact-info p{margin-top:18px; color:var(--walnut-dark); font-size:1.03rem; max-width:44ch;}
-  .info-rows{margin-top:38px; display:flex; flex-direction:column; gap:22px;}
-  .info-rows div{border-top:1px solid var(--line); padding-top:16px;}
-  .info-rows div .lbl{font-size:0.86rem; color:var(--olive); font-weight:500; margin-bottom:6px;}
-  .info-rows div .val{font-size:1.02rem;}
-
-  form.contact-form{
-    background:var(--paper);
-    border:1px solid var(--line);
-    padding:36px;
-    border-radius:3px;
-    display:flex;
-    flex-direction:column;
-    gap:18px;
-  }
-  form.contact-form label{font-size:0.88rem; color:var(--olive); font-weight:500; margin-bottom:6px; display:block;}
-  form.contact-form input, form.contact-form select, form.contact-form textarea{
-    width:100%;
-    background:transparent;
-    border:none;
-    border-bottom:1px solid var(--line);
-    padding:10px 2px;
-    font-family:'Work Sans', sans-serif;
-    font-size:0.98rem;
-    color:var(--ink);
-  }
-  form.contact-form input:focus, form.contact-form select:focus, form.contact-form textarea:focus{
-    border-bottom-color:var(--walnut);
-  }
-  form.contact-form textarea{resize:vertical; min-height:90px;}
-  form.contact-form .row2{display:grid; grid-template-columns:1fr 1fr; gap:18px;}
-  form.contact-form button{margin-top:8px; align-self:flex-start;}
-  .form-note{font-size:0.82rem; color:var(--ink); opacity:0.6; margin-top:-6px;}
-
-  /* ---------- FOOTER ---------- */
-  footer{
-    background:var(--walnut-dark);
-    color:rgba(244,239,228,0.75);
-    padding:48px 0 32px;
-  }
-  footer .wrap{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:18px;
-    padding-top:28px;
-    border-top:1px solid rgba(244,239,228,0.14);
-  }
-  .foot-top{
-    display:flex;
-    justify-content:space-between;
-    padding-bottom:28px;
-    flex-wrap:wrap;
-    gap:24px;
-  }
-  .foot-brand{
-    font-family:'Fraunces', serif;
-    font-size:1.3rem;
-    color:var(--paper);
-  }
-  .foot-links{display:flex; gap:30px; font-size:0.92rem;}
-  .foot-links a:hover{color:var(--paper);}
-  footer .fine{font-size:0.82rem;}
-
-  /* ---------- DARK MODE ---------- */
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --ink:#efe6d6;
-      --paper:#1c140d;
-      --paper-2:#241a11;
-      --line: rgba(239,230,214,0.14);
-    }
-    :root:not([data-theme="light"]) .hero{
-      background: repeating-linear-gradient(100deg, rgba(239,230,214,0.045) 0px, rgba(239,230,214,0.045) 1px, transparent 1px, transparent 68px);
-    }
-    :root:not([data-theme="light"]) header.site{background:rgba(28,20,13,0.92);}
-    :root:not([data-theme="light"]) form.contact-form{background:var(--paper-2);}
-  }
-  :root[data-theme="dark"]{
-    --ink:#efe6d6;
-    --paper:#1c140d;
-    --paper-2:#241a11;
-    --line: rgba(239,230,214,0.14);
-  }
-  :root[data-theme="dark"] .hero{
-    background: repeating-linear-gradient(100deg, rgba(239,230,214,0.045) 0px, rgba(239,230,214,0.045) 1px, transparent 1px, transparent 68px);
-  }
-  :root[data-theme="dark"] header.site{background:rgba(28,20,13,0.92);}
-  :root[data-theme="dark"] form.contact-form{background:var(--paper-2);}
-
-  /* ---------- RESPONSIVE ---------- */
-  @media (max-width: 980px){
-    nav.links{display:none;}
-    .menu-toggle{display:block;}
-    .hero-grid{grid-template-columns:1fr;}
-    .hero-art{order:-1; max-width:420px; margin:0 auto;}
-    .room-grid{grid-template-columns:repeat(2,1fr);}
-    .process .wrap{grid-template-columns:1fr; gap:40px;}
-    .process-art{order:-1; min-height:320px;}
-    .featured .wrap{grid-template-columns:1fr; gap:36px;}
-    .quotes .wrap{grid-template-columns:1fr; gap:34px;}
-    .contact .wrap{grid-template-columns:1fr; gap:40px;}
-    .foot-top{flex-direction:column;}
-  }
-  @media (max-width: 560px){
-    .room-grid{grid-template-columns:1fr;}
-    form.contact-form .row2{grid-template-columns:1fr;}
-    .hero-stats{gap:24px; flex-wrap:wrap;}
-    section{padding:72px 0;}
-  }
-</style>
-</head>
-<body>
-
-<header class="site">
-  <div class="nav">
-    <a href="#top" class="brand">Mobileri<span class="dot">·</span>Taci</a>
-    <nav class="links">
-      <a href="#dhomat">Dhomat</a>
-      <a href="#procesi">Procesi</a>
-      <a href="#koleksioni">Koleksioni</a>
-      <a href="#mendime">Klientët</a>
-      <a href="#kontakt">Kontakt</a>
-    </nav>
-    <a class="nav-phone" href="tel:+355691234567">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h3l2 5-2.5 1.5a11 11 0 0 0 5 5L15 12l5 2v3a2 2 0 0 1-2 2C10.5 19 5 13.5 5 6a2 2 0 0 1 1-3z"/></svg>
-      069 123 4567
-    </a>
-    <button class="menu-toggle" aria-label="Hap menynë"><span></span><span></span><span></span></button>
-  </div>
-</header>
-
-<main id="top">
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-grid">
-      <div class="hero-copy">
-        <p class="hero-eyebrow">Punishte dhe showroom në Tiranë, që prej 1994</p>
-        <h1>Mobilje që <em>mësohen</em> me shtëpinë tënde,<br>jo shtëpia me to.</h1>
-        <p class="hero-sub">Familja Taci prodhon mobilje me dorë për ndenjëse, dhomë gjumi, kuzhinë dhe zyrë — të matura për hapësirën tënde, jo për katalogun.</p>
-        <div class="hero-cta">
-          <a href="#kontakt" class="btn">Kërko një takim në showroom</a>
-          <a href="#dhomat" class="btn ghost">Shiko dhomat</a>
-        </div>
-        <div class="hero-stats">
-          <div><b>31</b><span>vite në zanat</span></div>
-          <div><b>2.400+</b><span>shtëpi të mobiluara</span></div>
-          <div><b>100%</b><span>dru masiv, jo aglomerat</span></div>
-        </div>
-      </div>
-      <div class="hero-art" aria-hidden="true">
-        <svg viewBox="0 0 480 420" xmlns="http://www.w3.org/2000/svg">
-          <ellipse cx="240" cy="380" rx="170" ry="14" fill="var(--walnut)" opacity="0.10"/>
-          <!-- back cushion -->
-          <rect x="120" y="70" width="240" height="180" rx="26" fill="var(--olive)" opacity="0.9"/>
-          <!-- frame / backrest outline -->
-          <path d="M100 250 V120 Q100 70 150 70 H330 Q380 70 380 120 V250" fill="none" stroke="var(--walnut)" stroke-width="6" stroke-linejoin="round"/>
-          <!-- seat cushion -->
-          <rect x="96" y="220" width="288" height="70" rx="18" fill="var(--walnut-light)"/>
-          <rect x="96" y="220" width="288" height="70" rx="18" fill="none" stroke="var(--walnut)" stroke-width="5"/>
-          <!-- armrests -->
-          <path d="M70 300 V190 Q70 160 100 160 V300 Q100 320 80 320 Q70 320 70 300Z" fill="var(--walnut-light)" stroke="var(--walnut)" stroke-width="5" stroke-linejoin="round"/>
-          <path d="M410 300 V190 Q410 160 380 160 V300 Q410 320 400 320 Q410 320 410 300Z" fill="var(--walnut-light)" stroke="var(--walnut)" stroke-width="5" stroke-linejoin="round"/>
-          <!-- stitching detail -->
-          <line x1="150" y1="255" x2="150" y2="285" stroke="var(--brass)" stroke-width="2" stroke-dasharray="3 5"/>
-          <line x1="240" y1="255" x2="240" y2="285" stroke="var(--brass)" stroke-width="2" stroke-dasharray="3 5"/>
-          <line x1="330" y1="255" x2="330" y2="285" stroke="var(--brass)" stroke-width="2" stroke-dasharray="3 5"/>
-          <!-- legs -->
-          <path d="M110 320 L96 372" stroke="var(--walnut)" stroke-width="8" stroke-linecap="round"/>
-          <path d="M370 320 L384 372" stroke="var(--walnut)" stroke-width="8" stroke-linecap="round"/>
-          <path d="M150 322 L142 372" stroke="var(--walnut)" stroke-width="8" stroke-linecap="round"/>
-          <path d="M330 322 L338 372" stroke="var(--walnut)" stroke-width="8" stroke-linecap="round"/>
-          <!-- small side table -->
-          <rect x="415" y="270" width="48" height="6" rx="2" fill="var(--walnut)"/>
-          <path d="M420 276 L416 330" stroke="var(--walnut)" stroke-width="5" stroke-linecap="round"/>
-          <path d="M458 276 L462 330" stroke="var(--walnut)" stroke-width="5" stroke-linecap="round"/>
-        </svg>
-      </div>
-    </div>
-  </section>
-
-  <!-- ROOMS -->
-  <section class="rooms" id="dhomat">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="kicker">Nga dera te dritarja</p>
-        <h2>Një zanat, çdo dhomë e shtëpisë</h2>
-        <p>Çdo koleksion dizajnohet veç, por ndan të njëjtin dru, të njëjtën dorë dhe të njëjtin kujdes për detajin.</p>
-      </div>
-    </div>
-    <div class="room-grid">
-      <div class="room-card">
-        <div class="icon">
-          <svg viewBox="0 0 140 78" xmlns="http://www.w3.org/2000/svg">
-            <path d="M14 60 V34 Q14 22 26 22 H114 Q126 22 126 34 V60" fill="none" stroke="var(--walnut)" stroke-width="4"/>
-            <rect x="10" y="52" width="120" height="18" rx="6" fill="var(--olive)" opacity="0.85"/>
-            <path d="M14 66 L8 76 M126 66 L132 76" stroke="var(--walnut)" stroke-width="4" stroke-linecap="round"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>Mobileri Taci — Mobilje për çdo cep të shtëpisë</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="site">
+      <div class="nav">
+        <a href="#top" class="brand">Mobileri<span class="dot">·</span>Taci</a>
+        <nav class="links">
+          <a href="#dhomat">Dhomat</a>
+          <a href="#procesi">Procesi</a>
+          <a href="#koleksioni">Koleksioni</a>
+          <a href="#mendime">Klientët</a>
+          <a href="#kontakt">Kontakt</a>
+        </nav>
+        <a class="nav-phone" href="tel:+355691234567">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.8"
+          >
+            <path
+              d="M6 3h3l2 5-2.5 1.5a11 11 0 0 0 5 5L15 12l5 2v3a2 2 0 0 1-2 2C10.5 19 5 13.5 5 6a2 2 0 0 1 1-3z"
+            />
           </svg>
-        </div>
-        <h3>Ndenjëse</h3>
-        <p>Divane modulare, kolltukë dhe tavolina të mesme, të përshtatura sipas gjatësisë së saloni tuaj.</p>
-        <span class="tag">18 modele</span>
+          069 123 4567
+        </a>
+        <button
+          class="menu-toggle"
+          aria-label="Hap menynë"
+          aria-expanded="false"
+        >
+          <span></span><span></span><span></span>
+        </button>
       </div>
-      <div class="room-card">
-        <div class="icon">
-          <svg viewBox="0 0 140 78" xmlns="http://www.w3.org/2000/svg">
-            <rect x="16" y="20" width="108" height="16" rx="4" fill="none" stroke="var(--walnut)" stroke-width="4"/>
-            <rect x="16" y="40" width="108" height="26" rx="3" fill="var(--walnut-light)"/>
-            <ellipse cx="38" cy="40" rx="14" ry="8" fill="var(--paper-2)" stroke="var(--walnut)" stroke-width="3"/>
-            <path d="M20 66 L16 76 M120 66 L124 76" stroke="var(--walnut)" stroke-width="4" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <h3>Dhomë gjumi</h3>
-        <p>Kryet e krevatit të veshura, komodina të vogla dhe dollapë me derë të fshehur, pa doreza metalike.</p>
-        <span class="tag">12 modele</span>
-      </div>
-      <div class="room-card">
-        <div class="icon">
-          <svg viewBox="0 0 140 78" xmlns="http://www.w3.org/2000/svg">
-            <rect x="14" y="18" width="112" height="14" fill="var(--walnut)"/>
-            <rect x="18" y="32" width="30" height="34" fill="none" stroke="var(--walnut)" stroke-width="3.5"/>
-            <rect x="55" y="32" width="30" height="34" fill="none" stroke="var(--walnut)" stroke-width="3.5"/>
-            <rect x="92" y="32" width="30" height="34" fill="none" stroke="var(--walnut)" stroke-width="3.5"/>
-            <line x1="33" y1="32" x2="33" y2="66" stroke="var(--brass)" stroke-width="2"/>
-            <line x1="70" y1="32" x2="70" y2="66" stroke="var(--brass)" stroke-width="2"/>
-            <line x1="107" y1="32" x2="107" y2="66" stroke="var(--brass)" stroke-width="2"/>
-          </svg>
-        </div>
-        <h3>Kuzhinë</h3>
-        <p>Elementë modularë me fasadë druri masiv, banak dhe rafte të hapura sipas hapësirës suaj.</p>
-        <span class="tag">9 modele</span>
-      </div>
-      <div class="room-card">
-        <div class="icon">
-          <svg viewBox="0 0 140 78" xmlns="http://www.w3.org/2000/svg">
-            <rect x="20" y="24" width="100" height="10" rx="2" fill="var(--walnut-light)" stroke="var(--walnut)" stroke-width="3"/>
-            <path d="M28 34 L24 60 M112 34 L116 60" stroke="var(--walnut)" stroke-width="4" stroke-linecap="round"/>
-            <path d="M60 40 Q60 30 70 30 Q80 30 80 40 V58 H60 Z" fill="var(--olive)" opacity="0.85"/>
-            <path d="M60 58 L56 68 M80 58 L84 68" stroke="var(--walnut)" stroke-width="3.5" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <h3>Zyrë &amp; studio</h3>
-        <p>Tavolina pune, biblioteka dhe karrige që qëndrojnë në këmbë vetë, pa lidhje me murin.</p>
-        <span class="tag">7 modele</span>
-      </div>
-    </div>
-  </section>
+    </header>
 
-  <!-- PROCESS -->
-  <section class="process" id="procesi">
-    <div class="wrap">
-      <div>
-        <div class="section-head" style="margin-bottom:34px;">
-          <p class="kicker">Si punojmë</p>
-          <h2>Nga trungu te dhoma e ndenjes</h2>
-        </div>
-        <div class="process-steps">
-          <div class="step">
-            <span class="num">01</span>
-            <div>
-              <h3>Zgjedhja e drurit</h3>
-              <p>Ahu, lisi dhe arra vijnë nga furnitorë vendas; çdo tra kontrollohet për venat dhe lagështinë përpara se të hyjë në punishte.</p>
+    <main id="top">
+      <!-- HERO -->
+      <section class="hero">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <p class="hero-eyebrow">
+              Punishte dhe showroom në Tiranë, që prej 1994
+            </p>
+            <h1>
+              Mobilje që <em>mësohen</em> me shtëpinë tënde,<br />jo shtëpia me
+              to.
+            </h1>
+            <p class="hero-sub">
+              Familja Taci prodhon mobilje me dorë për ndenjëse, dhomë gjumi,
+              kuzhinë dhe zyrë — të matura për hapësirën tënde, jo për
+              katalogun.
+            </p>
+            <div class="hero-cta">
+              <a href="#kontakt" class="btn">Kërko një takim në showroom</a>
+              <a href="#dhomat" class="btn ghost">Shiko dhomat</a>
+            </div>
+            <div class="hero-stats">
+              <div><b>31</b><span>vite në zanat</span></div>
+              <div><b>2.400+</b><span>shtëpi të mobiluara</span></div>
+              <div><b>100%</b><span>dru masiv, jo aglomerat</span></div>
             </div>
           </div>
-          <div class="step">
-            <span class="num">02</span>
-            <div>
-              <h3>Matja e shtëpisë suaj</h3>
-              <p>Vijmë me metër, jo me katalog — çdo cep, prizë dhe dritare regjistrohet përpara se të vizatohet skica.</p>
+          <div class="hero-art">
+            <img
+              src="images/hero-livingroom.jpg"
+              alt="Dhomë ndenjeje me mobilje prej druri masiv"
+              loading="eager"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- ROOMS -->
+      <section class="rooms" id="dhomat">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="kicker">Nga dera te dritarja</p>
+            <h2>Një zanat, çdo dhomë e shtëpisë</h2>
+            <p>
+              Çdo koleksion dizajnohet veç, por ndan të njëjtin dru, të njëjtën
+              dorë dhe të njëjtin kujdes për detajin.
+            </p>
+          </div>
+        </div>
+        <div class="room-grid">
+          <div class="room-card">
+            <div class="icon">
+              <img
+                src="images/livingroom.jpg"
+                alt="Ndenjëse prej druri masiv"
+              />
+            </div>
+            <h3>Ndenjëse</h3>
+            <p>
+              Divane modulare, kolltukë dhe tavolina të mesme, të përshtatura
+              sipas gjatësisë së saloni tuaj.
+            </p>
+            <span class="tag">18 modele</span>
+          </div>
+          <div class="room-card">
+            <div class="icon">
+              <img
+                src="images/bedroom.jpg"
+                alt="Dhomë gjumi prej druri masiv"
+              />
+            </div>
+            <h3>Dhomë gjumi</h3>
+            <p>
+              Kryet e krevatit të veshura, komodina të vogla dhe dollapë me derë
+              të fshehur, pa doreza metalike.
+            </p>
+            <span class="tag">12 modele</span>
+          </div>
+          <div class="room-card">
+            <div class="icon">
+              <img src="images/kitchen.jpg" alt="Kuzhinë prej druri masiv" />
+            </div>
+            <h3>Kuzhinë</h3>
+            <p>
+              Elementë modularë me fasadë druri masiv, banak dhe rafte të hapura
+              sipas hapësirës suaj.
+            </p>
+            <span class="tag">9 modele</span>
+          </div>
+          <div class="room-card">
+            <div class="icon">
+              <img
+                src="images/workshop.jpg"
+                alt="Zyrë dhe studio prej druri masiv"
+              />
+            </div>
+            <h3>Zyrë &amp; studio</h3>
+            <p>
+              Tavolina pune, biblioteka dhe karrige që qëndrojnë në këmbë vetë,
+              pa lidhje me murin.
+            </p>
+            <span class="tag">7 modele</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROCESS -->
+      <section class="process" id="procesi">
+        <div class="wrap">
+          <div>
+            <div class="section-head" style="margin-bottom: 34px">
+              <p class="kicker">Si punojmë</p>
+              <h2>Nga trungu te dhoma e ndenjes</h2>
+            </div>
+            <div class="process-steps">
+              <div class="step">
+                <span class="num">01</span>
+                <div>
+                  <h3>Zgjedhja e drurit</h3>
+                  <p>
+                    Ahu, lisi dhe arra vijnë nga furnitorë vendas; çdo tra
+                    kontrollohet për venat dhe lagështinë përpara se të hyjë në
+                    punishte.
+                  </p>
+                </div>
+              </div>
+              <div class="step">
+                <span class="num">02</span>
+                <div>
+                  <h3>Matja e shtëpisë suaj</h3>
+                  <p>
+                    Vijmë me metër, jo me katalog — çdo cep, prizë dhe dritare
+                    regjistrohet përpara se të vizatohet skica.
+                  </p>
+                </div>
+              </div>
+              <div class="step">
+                <span class="num">03</span>
+                <div>
+                  <h3>Punimi me dorë</h3>
+                  <p>
+                    Bashkimet bëhen me tenone dhe zdrukthe, jo vetëm me ngjitës
+                    — kështu mobilja zgjat breza, jo sezone.
+                  </p>
+                </div>
+              </div>
+              <div class="step">
+                <span class="num">04</span>
+                <div>
+                  <h3>Montimi në shtëpinë tuaj</h3>
+                  <p>
+                    Ekipi ynë instalon dhe rregullon çdo pjesë në vend, dhe
+                    qëndron derisa gjithçka të ulet si duhet.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="step">
-            <span class="num">03</span>
-            <div>
-              <h3>Punimi me dorë</h3>
-              <p>Bashkimet bëhen me tenone dhe zdrukthe, jo vetëm me ngjitës — kështu mobilja zgjat breza, jo sezone.</p>
+          <div class="process-art">
+            <img
+              src="images/workshop1.jpg"
+              alt="Zdrukthëtar duke punuar në punishte"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- FEATURED -->
+      <section class="featured" id="koleksioni">
+        <div class="wrap">
+          <div class="featured-copy">
+            <p class="kicker">Koleksioni i vitit</p>
+            <h2>Dollapi "Berat" — i menduar për shtëpi pa depo</h2>
+            <p class="desc">
+              I ndërtuar me arrë masive dhe rafte të rregullueshme, dollapi
+              Berat përshtatet te tavani i çdo dhome — nga 220 deri 280 cm — pa
+              lënë hapësirë të humbur sipër.
+            </p>
+            <div class="featured-list">
+              <div><span class="mk">—</span> Dru arre masive, jo furnir</div>
+              <div>
+                <span class="mk">—</span> Dyer që mbyllen pa zhurmë, me menteshë
+                të fshehura
+              </div>
+              <div>
+                <span class="mk">—</span> Ndërtohet sipas lartësisë suaj të
+                tavanit
+              </div>
+              <div>
+                <span class="mk">—</span> Garanci 10 vjet për strukturën
+              </div>
+            </div>
+            <div class="hero-cta" style="margin-top: 34px">
+              <a href="#kontakt" class="btn brass">Kërko çmim për Berat</a>
             </div>
           </div>
-          <div class="step">
-            <span class="num">04</span>
-            <div>
-              <h3>Montimi në shtëpinë tuaj</h3>
-              <p>Ekipi ynë instalon dhe rregullon çdo pjesë në vend, dhe qëndron derisa gjithçka të ulet si duhet.</p>
+          <div class="featured-art">
+            <img
+              src="images/wardrobe.jpg"
+              alt="Dollapi Berat prej druri arre"
+            />
+          </div>
+        </div>
+      </section>
+
+      <!-- TESTIMONIALS -->
+      <section class="quotes" id="mendime">
+        <div class="wrap">
+          <div class="section-head">
+            <p class="kicker">Klientët</p>
+            <h2>Familjet që kanë mobiluar me ne</h2>
+          </div>
+        </div>
+        <div class="wrap">
+          <div class="quote">
+            <p class="q">
+              "Vinin çdo javë të matnin, jo vetëm një herë. Kur erdhi divani, u
+              ul në qoshe sikur ishte bërë për atë mur."
+            </p>
+            <p class="who">Elona M. — Vorë</p>
+          </div>
+          <div class="quote">
+            <p class="q">
+              "Kuzhina jonë ka një kënd të çuditshëm prapa shkallëve. Taci na
+              bëri elementët me matje, jo standard, dhe hyri si duhej."
+            </p>
+            <p class="who">Gerti K. — Tiranë</p>
+          </div>
+          <div class="quote">
+            <p class="q">
+              "Krevati i prindërve ende qëndron si i ri, 14 vjet më vonë. Tani
+              po presim radhën për dhomën e djalit."
+            </p>
+            <p class="who">Sokol B. — Durrës</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section class="contact" id="kontakt">
+        <div class="wrap">
+          <div class="contact-info">
+            <h2>Ejani në showroom, ose na shkruani matjet</h2>
+            <p>
+              Zakonisht përgjigjemi brenda një dite pune. Nëse na vizitoni në
+              punishte, mund të shihni drurin përpara se të zgjidhni.
+            </p>
+            <div class="info-rows">
+              <div>
+                <div class="lbl">Showroom &amp; punishte</div>
+                <div class="val">
+                  Autostrada Tiranë–Durrës, Km 5, Kashar, Tiranë
+                </div>
+              </div>
+              <div>
+                <div class="lbl">Orari</div>
+                <div class="val">E hënë – E shtunë, 09:00 – 19:00</div>
+              </div>
+              <div>
+                <div class="lbl">Telefon</div>
+                <div class="val">
+                  <a href="tel:+355691234567">+355 69 123 4567</a>
+                </div>
+              </div>
+              <div>
+                <div class="lbl">Email</div>
+                <div class="val">
+                  <a href="mailto:info@mobileritaci.al">info@mobileritaci.al</a>
+                </div>
+              </div>
             </div>
           </div>
+          <form class="contact-form">
+            <div>
+              <label for="emri">Emri e mbiemri</label>
+              <input id="emri" name="emri" type="text" required />
+            </div>
+            <div class="row2">
+              <div>
+                <label for="tel">Telefon</label>
+                <input id="tel" name="tel" type="tel" required />
+              </div>
+              <div>
+                <label for="dhoma">Dhoma që ju intereson</label>
+                <select id="dhoma" name="dhoma">
+                  <option>Ndenjëse</option>
+                  <option>Dhomë gjumi</option>
+                  <option>Kuzhinë</option>
+                  <option>Zyrë &amp; studio</option>
+                  <option>E gjithë shtëpia</option>
+                </select>
+              </div>
+            </div>
+            <div>
+              <label for="mesazh">Përshkruani hapësirën tuaj</label>
+              <textarea
+                id="mesazh"
+                name="mesazh"
+                placeholder="P.sh. dhomë ndenjeje 4x5m, me një kënd të vështirë pas derës..."
+              ></textarea>
+            </div>
+            <p class="form-note">
+              Nuk ruajmë asnjë të dhënë automatikisht — lidheni formularin me
+              email-in tuaj për ta bërë funksional.
+            </p>
+            <button type="submit" class="btn">Dërgo kërkesën</button>
+            <p
+              class="form-success"
+              style="display: none; font-size: 0.9rem; margin-top: 4px"
+            >
+              Faleminderit! Do t'ju kontaktojmë së shpejti.
+            </p>
+          </form>
         </div>
-      </div>
-      <div class="process-art" aria-hidden="true">
-        <svg viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg">
-          <rect x="40" y="30" width="220" height="14" fill="var(--paper)" opacity="0.92"/>
-          <rect x="30" y="44" width="20" height="270" fill="var(--paper)" opacity="0.92"/>
-          <rect x="250" y="44" width="20" height="270" fill="var(--paper)" opacity="0.92"/>
-          <rect x="50" y="80" width="200" height="4" fill="var(--paper)" opacity="0.35"/>
-          <rect x="50" y="140" width="200" height="4" fill="var(--paper)" opacity="0.35"/>
-          <rect x="50" y="200" width="200" height="4" fill="var(--paper)" opacity="0.35"/>
-          <rect x="50" y="260" width="200" height="4" fill="var(--paper)" opacity="0.35"/>
-          <g opacity="0.95">
-            <rect x="66" y="94" width="46" height="38" fill="var(--brass)"/>
-            <rect x="122" y="150" width="60" height="44" fill="var(--olive-light)"/>
-            <rect x="190" y="90" width="42" height="44" fill="var(--paper)"/>
-            <rect x="70" y="216" width="70" height="38" fill="var(--paper)" opacity="0.6"/>
-            <rect x="160" y="220" width="50" height="34" fill="var(--brass)" opacity="0.85"/>
-          </g>
-          <path d="M30 314 H270" stroke="var(--paper)" stroke-width="6" opacity="0.92"/>
-        </svg>
-      </div>
-    </div>
-  </section>
+      </section>
+    </main>
 
-  <!-- FEATURED -->
-  <section class="featured" id="koleksioni">
-    <div class="wrap">
-      <div class="featured-copy">
-        <p class="kicker">Koleksioni i vitit</p>
-        <h2>Dollapi "Berat" — i menduar për shtëpi pa depo</h2>
-        <p class="desc">I ndërtuar me arrë masive dhe rafte të rregullueshme, dollapi Berat përshtatet te tavani i çdo dhome — nga 220 deri 280 cm — pa lënë hapësirë të humbur sipër.</p>
-        <div class="featured-list">
-          <div><span class="mk">—</span> Dru arre masive, jo furnir</div>
-          <div><span class="mk">—</span> Dyer që mbyllen pa zhurmë, me menteshë të fshehura</div>
-          <div><span class="mk">—</span> Ndërtohet sipas lartësisë suaj të tavanit</div>
-          <div><span class="mk">—</span> Garanci 10 vjet për strukturën</div>
-        </div>
-        <div class="hero-cta" style="margin-top:34px;">
-          <a href="#kontakt" class="btn" style="background:var(--brass); border-color:var(--brass); color:var(--walnut-dark);">Kërko çmim për Berat</a>
-        </div>
-      </div>
-      <div class="featured-art" aria-hidden="true">
-        <svg viewBox="0 0 300 360" xmlns="http://www.w3.org/2000/svg">
-          <rect x="20" y="20" width="260" height="300" rx="4" fill="none" stroke="var(--paper)" stroke-width="4" opacity="0.9"/>
-          <line x1="150" y1="20" x2="150" y2="320" stroke="var(--paper)" stroke-width="4" opacity="0.9"/>
-          <rect x="36" y="40" width="98" height="120" fill="none" stroke="var(--paper)" stroke-width="2.5" opacity="0.5"/>
-          <rect x="166" y="40" width="98" height="120" fill="none" stroke="var(--paper)" stroke-width="2.5" opacity="0.5"/>
-          <rect x="36" y="176" width="98" height="120" fill="none" stroke="var(--paper)" stroke-width="2.5" opacity="0.5"/>
-          <rect x="166" y="176" width="98" height="120" fill="none" stroke="var(--paper)" stroke-width="2.5" opacity="0.5"/>
-          <circle cx="140" cy="100" r="3" fill="var(--brass)"/>
-          <circle cx="160" cy="100" r="3" fill="var(--brass)"/>
-          <circle cx="140" cy="236" r="3" fill="var(--brass)"/>
-          <circle cx="160" cy="236" r="3" fill="var(--brass)"/>
-        </svg>
-      </div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section class="quotes" id="mendime">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="kicker">Klientët</p>
-        <h2>Familjet që kanë mobiluar me ne</h2>
-      </div>
-    </div>
-    <div class="wrap">
-      <div class="quote">
-        <p class="q">"Vinin çdo javë të matnin, jo vetëm një herë. Kur erdhi divani, u ul në qoshe sikur ishte bërë për atë mur."</p>
-        <p class="who">Elona M. — Vorë</p>
-      </div>
-      <div class="quote">
-        <p class="q">"Kuzhina jonë ka një kënd të çuditshëm prapa shkallëve. Taci na bëri elementët me matje, jo standard, dhe hyri si duhej."</p>
-        <p class="who">Gerti K. — Tiranë</p>
-      </div>
-      <div class="quote">
-        <p class="q">"Krevati i prindërve ende qëndron si i ri, 14 vjet më vonë. Tani po presim radhën për dhomën e djalit."</p>
-        <p class="who">Sokol B. — Durrës</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section class="contact" id="kontakt">
-    <div class="wrap">
-      <div class="contact-info">
-        <h2>Ejani në showroom, ose na shkruani matjet</h2>
-        <p>Zakonisht përgjigjemi brenda një dite pune. Nëse na vizitoni në punishte, mund të shihni drurin përpara se të zgjidhni.</p>
-        <div class="info-rows">
+    <footer>
+      <div class="wrap">
+        <div class="foot-top">
           <div>
-            <div class="lbl">Showroom &amp; punishte</div>
-            <div class="val">Autostrada Tiranë–Durrës, Km 5, Kashar, Tiranë</div>
+            <div class="foot-brand">Mobileri Taci</div>
+            <p class="foot-tag">
+              Mobilje me dru masiv, të bëra me dorë në Tiranë që prej 1994.
+            </p>
           </div>
-          <div>
-            <div class="lbl">Orari</div>
-            <div class="val">E hënë – E shtunë, 09:00 – 19:00</div>
-          </div>
-          <div>
-            <div class="lbl">Telefon</div>
-            <div class="val"><a href="tel:+355691234567">+355 69 123 4567</a></div>
-          </div>
-          <div>
-            <div class="lbl">Email</div>
-            <div class="val"><a href="mailto:info@mobileritaci.al">info@mobileritaci.al</a></div>
+          <div class="foot-links">
+            <a href="#dhomat">Dhomat</a>
+            <a href="#procesi">Procesi</a>
+            <a href="#koleksioni">Koleksioni</a>
+            <a href="#kontakt">Kontakt</a>
           </div>
         </div>
-      </div>
-      <form class="contact-form" onsubmit="event.preventDefault(); this.querySelector('.form-success').style.display='block'; this.reset();">
-        <div>
-          <label for="emri">Emri e mbiemri</label>
-          <input id="emri" name="emri" type="text" required>
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            flex-wrap: wrap;
+            gap: 12px;
+          "
+        >
+          <span class="fine"
+            >© 2026 Mobileri Taci. Të gjitha të drejtat e rezervuara.</span
+          >
+          <span class="fine">Kashar, Tiranë · +355 69 123 4567</span>
         </div>
-        <div class="row2">
-          <div>
-            <label for="tel">Telefon</label>
-            <input id="tel" name="tel" type="tel" required>
-          </div>
-          <div>
-            <label for="dhoma">Dhoma që ju intereson</label>
-            <select id="dhoma" name="dhoma">
-              <option>Ndenjëse</option>
-              <option>Dhomë gjumi</option>
-              <option>Kuzhinë</option>
-              <option>Zyrë &amp; studio</option>
-              <option>E gjithë shtëpia</option>
-            </select>
-          </div>
-        </div>
-        <div>
-          <label for="mesazh">Përshkruani hapësirën tuaj</label>
-          <textarea id="mesazh" name="mesazh" placeholder="P.sh. dhomë ndenjeje 4x5m, me një kënd të vështirë pas derës..."></textarea>
-        </div>
-        <p class="form-note">Nuk ruajmë asnjë të dhënë automatikisht — lidheni formularin me email-in tuaj për ta bërë funksional.</p>
-        <button type="submit" class="btn">Dërgo kërkesën</button>
-        <p class="form-success" style="display:none; font-size:0.9rem; color:var(--olive); margin-top:4px;">Faleminderit! Do t'ju kontaktojmë së shpejti.</p>
-      </form>
-    </div>
-  </section>
-</main>
-
-<footer>
-  <div class="wrap">
-    <div class="foot-top">
-      <div>
-        <div class="foot-brand">Mobileri Taci</div>
-        <p style="margin-top:10px; max-width:32ch; font-size:0.92rem;">Mobilje me dru masiv, të bëra me dorë në Tiranë që prej 1994.</p>
       </div>
-      <div class="foot-links">
-        <a href="#dhomat">Dhomat</a>
-        <a href="#procesi">Procesi</a>
-        <a href="#koleksioni">Koleksioni</a>
-        <a href="#kontakt">Kontakt</a>
-      </div>
-    </div>
-    <div style="display:flex; justify-content:space-between; width:100%; flex-wrap:wrap; gap:12px;">
-      <span class="fine">© 2026 Mobileri Taci. Të gjitha të drejtat e rezervuara.</span>
-      <span class="fine">Kashar, Tiranë · +355 69 123 4567</span>
-    </div>
-  </div>
-</footer>
+    </footer>
 
-<script>
-  // Mobile menu toggle
-  document.querySelector('.menu-toggle').addEventListener('click', function(){
-    var links = document.querySelector('nav.links');
-    var open = links.style.display === 'flex';
-    links.style.display = open ? 'none' : 'flex';
-    links.style.flexDirection = 'column';
-    links.style.position = 'absolute';
-    links.style.top = '64px';
-    links.style.left = '0';
-    links.style.right = '0';
-    links.style.background = 'var(--paper)';
-    links.style.padding = '20px 6vw';
-    links.style.borderBottom = '1px solid var(--line)';
-    links.style.gap = '18px';
-  });
-</script>
-
-</body>
+    <script src="js/main.js"></script>
+  </body>
 </html>
